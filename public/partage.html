@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Partage</title>
+  <meta charset="UTF-8" />
+</head>
+
+<body>
+    <button onclick="startPartage()">Partager mon écran</button><br>
+  <video playsinline autoplay muted></video>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const peerConnections = {};
+const config = {iceServers: []};
+
+const socket = io.connect(window.location.origin);
+console.log(window.location.origin);
+
+socket.on("answer", (id, description) => {
+  peerConnections[id].setRemoteDescription(description);
+});
+
+socket.on("watcher", id => {
+  const peerConnection = new RTCPeerConnection(config);
+  peerConnections[id] = peerConnection;
+
+  let stream = videoElement.srcObject;
+  stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
+
+  peerConnection.onicecandidate = event => {
+    if (event.candidate) {
+      socket.emit("candidate", id, event.candidate);
+    }
+  };
+
+  peerConnection
+    .createOffer()
+    .then(sdp => peerConnection.setLocalDescription(sdp))
+    .then(() => {
+      socket.emit("offer", id, peerConnection.localDescription);
+    });
+});
+
+socket.on("candidate", (id, candidate) => {
+  peerConnections[id].addIceCandidate(new RTCIceCandidate(candidate));
+});
+
+socket.on("disconnectPeer", id => {
+  peerConnections[id].close();
+  delete peerConnections[id];
+});
+
+window.onunload = window.onbeforeunload = () => {
+  socket.close();
+};
+
+// Get camera and microphone
+const videoElement = document.querySelector("video");
+//const audioSelect = document.querySelector("select#sSource");
+
+async function startPartage(){
+  if (window.stream) {
+    window.stream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+  const constraints = {
+    audio: false,
+    video: true
+  };
+  await navigator.mediaDevices.getDisplayMedia(constraints).then(gotStream).catch(handleError);
+}
+
+function gotStream(stream) {
+  videoElement.srcObject = stream;
+  socket.emit("broadcaster");
+}
+
+function handleError(error) {
+  console.error("Error: ", error);
+}
+  </script>
+</body>
+
+</html>

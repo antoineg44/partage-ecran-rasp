@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="refresh" content="1;URL='http://localhost/server/'" />
+  <title>Ouverture ...</title>
+</head>
+<body style="font-size: inherit;">
+    Ouverture du gestionnaire de fichier en cours ...
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect(window.location.origin);
+        socket.emit("explorateur");
+        window.onunload = window.onbeforeunload = () => {
+            socket.close();
+        };
+    </script>
+</body>
+</html>

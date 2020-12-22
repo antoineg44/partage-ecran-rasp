@@ -1,0 +1,20 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="refresh" content="1;URL='https://192.168.1.211:4000/camera.html'">
+  <title>Ouverture ...</title>
+</head>
+<body style="font-size: inherit;">
+    Chargement du partage en cours ...
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect(window.location.origin);
+        socket.emit("startBroad");
+        window.onunload = window.onbeforeunload = () => {
+            socket.close();
+        };
+    </script>
+</body>
+</html>
