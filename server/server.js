@@ -16,9 +16,10 @@ const fs = require('fs');
 var exec = require('child_process').exec, child;
 
 // certificat https
+const path = require("path");
 const options = {
-  key: fs.readFileSync('/home/pi/partage-ecran-rasp/server/key.pem'),
-  cert: fs.readFileSync('/home/pi/partage-ecran-rasp/server/cert.pem')
+  key: fs.readFileSync(path.resolve(__dirname, 'key.pem')),
+  cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem'))
 };
 
 const server = https.createServer(options, app);
