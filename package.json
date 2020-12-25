@@ -5,7 +5,9 @@
   "main": "server/server.js",
   "dependencies": {
     "bootstrap": "^4.5.3",
-    "jquery": "^3.5.1"
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "socket.io": "^3.0.4"
   },
   "devDependencies": {},
   "scripts": {
