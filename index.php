@@ -45,7 +45,7 @@
 			<div class="fonctionnalites">
 			  <h3>Streaming</h3>
 			  <div class="card">
-				<button class="btn btn-primary" type="button" target="_blank" onclick="window.open('https://<?php echo $_SERVER['SERVER_ADDR']; ?>:4000/startBroad.php','_blank')">Partager mon écran</button>
+				<button class="btn btn-primary" type="button" target="_blank" onclick="window.open('https://<?php echo $_SERVER['SERVER_ADDR']; ?>:4000/startCamera.html?server=<?php echo $_SERVER['SERVER_ADDR']; ?>', '_blank')">Partager mon écran</button>
 				<div class="card-header" id="headingOne">
 				<h2 class="mb-0">
 					<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -63,7 +63,7 @@
 			</div>
 
 			<div class="card">
-				<button class="btn btn-primary" type="button" onclick="window.open('https://<?php echo $_SERVER['SERVER_ADDR']; ?>:4000/startCamera.html?server=192.168.0.42', '_blank')">Partager ma caméra</button>
+				<button class="btn btn-primary" type="button" onclick="window.open('https://<?php echo $_SERVER['SERVER_ADDR']; ?>:4000/startCamera.html?server=<?php echo $_SERVER['SERVER_ADDR']; ?>', '_blank')">Partager ma caméra</button>
 				<div class="card-header" id="headingTwo">
 				<h2 class="mb-0">
 					<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
