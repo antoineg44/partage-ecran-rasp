@@ -1,20 +1,35 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="refresh" content="1;URL='https://192.168.1.211:4000/camera.html'">
   <title>Ouverture ...</title>
 </head>
 <body style="font-size: inherit;">
     Chargement du partage en cours ...
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        // connexion au serveur pour ouvrir la bonne page web sur le serveur
         const socket = io.connect(window.location.origin);
         socket.emit("startBroad");
         window.onunload = window.onbeforeunload = () => {
             socket.close();
         };
+
+        // récupérer les paramètres du l'url
+        function getParameterByName(name)
+        {
+            name = name.replace('/[[]/', '[').replace('/[]]/', ']');
+            var regexS = "[?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(window.location.search);
+            if(results == null)
+            return ;
+            else
+            return decodeURIComponent(results[1].replace('/+/g', ));
+        }
+
+        // ouverture de la page de transmission sur le client
+        setTimeout("location.href = 'https://" +getParameterByName("server") + ":4000/camera.html';", 1000);
     </script>
 </body>
 </html>
