@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application  
+Exec=/bin/node /home/pi/Documents/partage-ecran-rasp/server/server.js
+X-GNOME-Autostart-enabled=true    
+Name=ws-start 
+Comment=sart socket serveur
