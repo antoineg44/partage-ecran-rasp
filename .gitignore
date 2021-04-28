@@ -1,1 +1,7 @@
 node_modules
+php/fonctions/eteindre
+php/fonctions/fermerNavi
+php/fonctions/phpreboot
+php/fonctions/unveille
+php/fonctions/veille
+
