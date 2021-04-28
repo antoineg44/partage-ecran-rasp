@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application  
-Exec=/usr/bin/chromium-browser --kiosk http://localhost/  
+Exec=/usr/bin/chromium-browser --kiosk http://localhost/server/  
 Hidden=false  
 X-GNOME-Autostart-enabled=true  
 Name[en_US]=AutoChromium  

@@ -76,6 +76,10 @@ io.sockets.on("connection", socket => {
     child = exec('pkill -f "chromium-browser-v7"', function () {});
     startNavi();
   });
+socket.on('marges', (haute, basse, gauche, droite) => {
+    console.log("MAJ marges, h:"+haute+" b:"+basse+" g:"+gauche+" d:"+droite);
+    socket.broadcast.emit("marges", haute, basse, gauche, droite);
+  });
 });
 server.listen(port, () => console.log(`Server is running on port ${port}`));
 

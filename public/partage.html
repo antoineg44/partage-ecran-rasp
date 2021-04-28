@@ -6,9 +6,12 @@
   <meta charset="UTF-8" />
 </head>
 
-<body>
-    <button onclick="startPartage()">Partager mon écran</button><br>
-  <video playsinline autoplay muted></video>
+<body style="width:100%;height:100%">
+<table style="width:100%;height:100%">
+    <tr style="width:100%;height:100%">
+      <td style="width:50%;height:100%;border: 2px solid #000;">
+    
+  <video playsinline autoplay muted style="width:100%"></video>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const peerConnections = {};
@@ -81,6 +84,71 @@ function handleError(error) {
   console.error("Error: ", error);
 }
   </script>
+</td>
+<td style="width:50%;height:100%">
+<button onclick="startPartage()" style="margin-bottom:50px">Partager mon écran</button><br/>
+(augmenter le zoom dans les paramètre de Scrolleur-chanteur et redimensionner la fenêtre pour améliorer la qualité)
+marge haute  : <input id="haute"  type='text' onkeypress='validate(event)' value="-25"/>(-110 pour retirer la barre noire "about:blank")<br/>
+<!--marge basse  : <input id="basse"  type='text' onkeypress='validate(event)' value="0"/><br/>-->
+marge gauche : <input id="gauche" type='text' onkeypress='validate(event)' value="25"/><br/>
+<!--marge droite : <input id="droite" type='text' onkeypress='validate(event)' value="0"/><br/>-->
+<button onclick="envoi_data()">Envoyer les paramètres</button><br/>
+
+<script>
+function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|-/;
+  if( !regex.test(key) || key==45) { // ou touche '-'
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+  //if(key == 13 || key==10)envoi_data();	// touche entrer
+
+}
+
+// Get the input field
+var input1 = document.getElementById("haute");
+var input2 = document.getElementById("gauche");
+
+// Execute a function when the user releases a key on the keyboard
+input1.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    envoi_data()
+  }
+});
+input2.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    envoi_data()
+  }
+}); 
+
+function envoi_data(){
+    var haute  = document.getElementById("haute").value;
+    var basse  = 0;//document.getElementById("basse").value;
+    var gauche = document.getElementById("gauche").value;
+    var droite = 0;//document.getElementById("droite").value;
+    socket.emit("marges", haute, basse, gauche, droite);
+    
+}
+</script>
+</td>
+  </tr>
+</table>
 </body>
 
 </html>

@@ -42,6 +42,14 @@ socket.on("disconnectPeer", () => {
   peerConnection.close();
 });
 
+socket.on('marges', (haute, basse, gauche, droite) => {
+  console.log("MAJ marges, h:"+haute+" b:"+basse+" g:"+gauche+" d:"+droite);
+  document.getElementById("aff_video").style.marginTop = haute+"px";
+  document.getElementById("aff_video").style.marginBottom = basse+"px";
+  document.getElementById("aff_video").style.marginLeft = gauche+"px";
+  document.getElementById("aff_video").style.marginRight = droite+"px";
+});
+
 window.onunload = window.onbeforeunload = () => {
   socket.close();
 };
@@ -50,3 +58,6 @@ function enableAudio() {
   console.log("Enabling audio")
   video.muted = false;
 }
+
+document.getElementById("aff_video").style.marginTop = "-25px";
+document.getElementById("aff_video").style.marginLeft = "25px";
