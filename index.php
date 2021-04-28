@@ -7,7 +7,7 @@
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Font Awesome -->
